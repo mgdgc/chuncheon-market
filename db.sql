@@ -12,14 +12,15 @@ create table webdevcon.user
 
 create table webdevcon.market
 (
-    marketId   int unsigned primary key      not null auto_increment,
-    marketName varchar(20)                   not null,
-    marketDesc varchar(100)                  not null,
-    longitude  double                        not null,
-    latitude   double                        not null,
-    openTime   time       default '09:00:00' null,
-    closeTime  time       default '20:00:00' null,
-    openDay    varchar(7) default '0123456'  null
+    marketId   int unsigned primary key not null auto_increment,
+    marketName varchar(20)              not null,
+    marketDesc varchar(100)             not null,
+    longitude  double                   not null,
+    latitude   double                   not null,
+    openTime   time         default '09:00:00',
+    closeTime  time         default '20:00:00',
+    openDay    varchar(7)   default '0123456',
+    fileId     int unsigned default null
 );
 
 create table webdevcon.parking

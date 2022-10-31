@@ -8,6 +8,7 @@ interface FileMapper {
 
     fun insertFile(fileVO: FileVO)
     fun getFile(fileId: Int): FileVO
+    fun getFiles(userId: String): List<FileVO>
     fun getLatestFile(userId: String): FileVO?
     fun deleteFile(fileId: Int)
 

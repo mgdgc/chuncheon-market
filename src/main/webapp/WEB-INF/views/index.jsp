@@ -75,21 +75,61 @@
                 </li>
             </ul>
         </div>
-        <c:choose>
-            <c:when test="${user != null}">
-                <a class="btn btn-outline-success btn-sm" type="submit" href="/logout">로그아웃</a>
-            </c:when>
-            <c:otherwise>
-                <a class="btn btn-outline-success btn-sm" type="submit" href="/login">로그인</a>
-            </c:otherwise>
-        </c:choose>
+<%--        <c:choose>--%>
+<%--            <c:when test="${user != null}">--%>
+<%--                <a class="btn btn-outline-success btn-sm" type="submit" href="/logout">로그아웃</a>--%>
+<%--            </c:when>--%>
+<%--            <c:otherwise>--%>
+<%--                <a class="btn btn-outline-success btn-sm" type="submit" href="/login">로그인</a>--%>
+<%--            </c:otherwise>--%>
+<%--        </c:choose>--%>
     </div>
 </nav>
 
 <%-- content --%>
 <div class="container">
 
+    <div class="container d-flex row mt-5">
 
+        <c:forEach var="m" items="${markets}">
+            <div class="card" style="width: 18rem;">
+                <img src="/image/${m.fileId}" class="card-img-top" alt="">
+                <div class="card-body">
+                    <h5 class="card-title"><c:out value="${m.marketName}"/></h5>
+                    <p class="card-text">
+                        <c:out value="${m.marketDesc}"/>
+                    </p>
+                    <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#prjModal"
+                       onclick="getDocument(${m.getMarketId()})">자세히 보기</a>
+                </div>
+            </div>
+        </c:forEach>
+
+    </div>
+
+</div>
+
+<!-- Scrollable modal -->
+<div class="modal fade" id="prjModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content r-bg-primary">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="prjModelTitle">Modal title</h1>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">X</button>
+            </div>
+            <div class="modal-body">
+                <img src="" id="prjModalImg" width="100%"/>
+                <div class="container mt-5" id="prjModalBody" style="white-space: pre-line;">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a type="button" class="btn btn-primary" id="prjModalBtnGithub" target="_blank">카카오맵 열기</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <%-- Bootstrap --%>
@@ -98,5 +138,58 @@
         crossorigin="anonymous">
 </script>
 </body>
+
+<script type="text/javascript">
+    function getDocument(marketId) {
+        $.ajax({
+            url: "/market/" + marketId,
+            type: "GET",
+            async: true,
+            timeout: 3000,
+            beforeSend: function () {
+                $("#prjModelTitle").text("");
+                $("#prjModalBody").text("");
+            },
+            success: function (data, status, xhr) {
+                $("#prjModelTitle").text(data.marketName);
+                $("#prjModalImg").attr("src", "/image/" + data.fileId)
+                var desc = data.marketDesc + "\n\n운영시간: "
+                    + data.openTime + " ~ " + data.closeTime
+                    + "\n운영요일: ";
+                for (i in data.openDay) {
+                    switch (i) {
+                        case '0':
+                            desc += "일"
+                            break
+                        case '1':
+                            desc += "월"
+                            break
+                        case '2':
+                            desc += "화"
+                            break
+                        case '3':
+                            desc += "수"
+                            break
+                        case '4':
+                            desc += "목"
+                            break
+                        case '5':
+                            desc += "금"
+                            break
+                        case '6':
+                            desc += "토"
+                            break
+                    }
+                }
+                $("#prjModalBody").text(desc);
+                $("#prjModalBtnGithub").attr("href", "https://map.kakao.com/link/map/" + data.latitude + "," + data.longitude)
+            },
+            error: function (xhr, status, error) {
+                $("#prjModelTitle").text("오류");
+                $("#prjModalBody").text("정보를 불러올 수 없습니다.");
+            }
+        });
+    }
+</script>
 
 </html>

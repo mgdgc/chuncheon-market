@@ -16,6 +16,12 @@
         where fileId = #{fileId};
     </select>
 
+    <select id="getFiles" parameterType="string" resultType="FileVO">
+        select *
+        from webdevcon.file
+        where userId = #{userId};
+    </select>
+
     <select id="getLatestFile" parameterType="String" resultType="FileVO">
         select *
         from webdevcon.file

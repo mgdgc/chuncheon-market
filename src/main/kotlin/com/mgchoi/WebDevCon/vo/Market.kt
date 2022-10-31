@@ -13,5 +13,6 @@ data class Market(
     var latitude: Double,
     var openTime: String?,
     var closeTime: String?,
-    var openDay: String?
+    var openDay: String?,
+    var fileId: Int?
 )

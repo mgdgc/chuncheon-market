@@ -19,6 +19,10 @@ class FileServiceImpl : FileService {
         return mapper.getFile(fileId)
     }
 
+    override fun getFiles(userId: String): List<FileVO> {
+        return mapper.getFiles(userId)
+    }
+
     override fun getLatestFile(userId: String): FileVO? {
         return mapper.getLatestFile(userId)
     }

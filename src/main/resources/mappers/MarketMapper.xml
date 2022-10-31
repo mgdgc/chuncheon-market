@@ -6,8 +6,8 @@
 <mapper namespace="com.mgchoi.WebDevCon.dao.MarketMapper">
 
     <insert id="insertMarket" parameterType="Market">
-        insert into webdevcon.market (marketName, marketDesc, longitude, latitude, openTime, closeTime, openDay)
-        values (#{marketName}, #{marketDesc}, #{longitude}, #{latitude}, #{openTime}, #{closeTime}, #{openDay})
+        insert into webdevcon.market (marketName, marketDesc, longitude, latitude, openTime, closeTime, openDay, fileId)
+        values (#{marketName}, #{marketDesc}, #{longitude}, #{latitude}, #{openTime}, #{closeTime}, #{openDay}, #{fileId});
     </insert>
 
     <select id="selectMarkets" resultType="Market">
@@ -35,7 +35,8 @@
             latitude   = #{latitude},
             openTime   = #{openTime},
             closeTime  = #{closeTime},
-            openDay    = #{openDay}
+            openDay    = #{openDay},
+            fileId     = #{fileId}
         where marketId = #{marketId};
     </update>
 
