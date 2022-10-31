@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mgchoi.WebDevCon.dao.MarketMapper">
+
+    <insert id="insertMarket" parameterType="Market">
+        insert into webdevcon.market (marketName, marketDesc, longitude, latitude, openTime, closeTime, openDay)
+        values (#{marketName}, #{marketDesc}, #{longitude}, #{latitude}, #{openTime}, #{closeTime}, #{openDay})
+    </insert>
+
+    <select id="selectMarkets" resultType="Market">
+        select *
+        from webdevcon.market;
+    </select>
+
+    <select id="selectMarketById" parameterType="integer" resultType="Market">
+        select *
+        from webdevcon.market
+        where marketId = #{marketId};
+    </select>
+
+    <delete id="deleteMarket" parameterType="integer">
+        delete
+        from webdevcon.market
+        where marketId = #{marketId};
+    </delete>
+
+    <update id="updateMarket" parameterType="Market">
+        update webdevcon.market
+        set marketName = #{marketName},
+            marketDesc = #{marketDesc},
+            longitude  = #{longitude},
+            latitude   = #{latitude},
+            openTime   = #{openTime},
+            closeTime  = #{closeTime},
+            openDay    = #{openDay}
+        where marketId = #{marketId};
+    </update>
+
+</mapper>

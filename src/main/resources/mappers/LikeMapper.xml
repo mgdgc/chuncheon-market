@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mgchoi.WebDevCon.dao.LikeMapper">
+
+    <insert id="insertLike" parameterType="Like">
+        insert into webdevcon.`like` (userId, marketId, commentId)
+        values (#{userId}, #{marketId}, #{commentId});
+    </insert>
+
+    <select id="countMarketLike" parameterType="integer" resultType="integer">
+        select count(*)
+        from webdevcon.`like`
+        where marketId = #{marketId};
+    </select>
+
+    <select id="countCommentLike" parameterType="integer" resultType="integer">
+        select count(*)
+        from webdevcon.`like`
+        where commentId = #{commentId};
+    </select>
+
+    <select id="deleteLike" parameterType="Like">
+        delete
+        from webdevcon.`like`
+        where userId = #{userId}
+          and marketId = #{marketId};
+    </select>
+
+    <select id="selectLike" parameterType="Like" resultType="Like">
+        select *
+        from webdevcon.`like`
+        where userId = #{userId}
+          and (marketId = #{marketId} or commentId = #{commentId});
+    </select>
+
+</mapper>

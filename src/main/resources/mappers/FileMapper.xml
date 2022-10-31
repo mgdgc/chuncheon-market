@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mgchoi.WebDevCon.dao.FileMapper">
+
+    <insert id="insertFile" parameterType="FileVO">
+        insert into webdevcon.file (originalName, type, userId)
+        values (#{originalName}, #{type}, #{userId});
+    </insert>
+
+    <select id="getFile" parameterType="integer" resultType="FileVO">
+        select *
+        from webdevcon.file
+        where fileId = #{fileId};
+    </select>
+
+    <select id="getLatestFile" parameterType="String" resultType="FileVO">
+        select *
+        from webdevcon.file
+        where userId = #{userId}
+        order by uploaded desc;
+    </select>
+
+    <delete id="deleteFile" parameterType="integer">
+        delete
+        from webdevcon.file
+        where fileId = #{fileId};
+    </delete>
+
+</mapper>

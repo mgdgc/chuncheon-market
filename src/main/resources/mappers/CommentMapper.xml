@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mgchoi.WebDevCon.dao.CommentMapper">
+
+    <insert id="insertComment" parameterType="Comment">
+        insert into webdevcon.comment (userId, marketId, content, fileId)
+        VALUES (#{userId}, #{marketId}, #{content}, #{fileId});
+    </insert>
+
+    <select id="selectComments" parameterType="integer" resultType="Comment">
+        select *
+        from webdevcon.comment
+        where marketId = #{marketId};
+    </select>
+
+    <select id="selectCommentsByUserId" parameterType="string" resultType="Comment">
+        select *
+        from webdevcon.comment
+        where userId = #{userId};
+    </select>
+
+    <select id="selectGlobalComments" resultType="Comment">
+        select *
+        from webdevcon.comment
+        where marketId is null;
+    </select>
+
+    <delete id="deleteComment" parameterType="integer">
+        delete
+        from webdevcon.comment
+        where commentId = #{commentId};
+    </delete>
+
+    <update id="updateComment" parameterType="Comment">
+        update webdevcon.comment
+        set content = #{content},
+            fileId  = #{fileId}
+        where commentId = #{commentId};
+    </update>
+
+</mapper>

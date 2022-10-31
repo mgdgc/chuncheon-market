@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mgchoi.WebDevCon.dao.ParkingMapper">
+
+    <insert id="insertParking" parameterType="Parking">
+        insert into webdevcon.parking(marketId, parkingName, longitude, latitude, capacity)
+        values (#{marketId}, #{parkingName}, #{longitude}, #{latitude}, #{capacity});
+    </insert>
+
+    <select id="selectParkings" resultType="Parking">
+        select *
+        from webdevcon.parking;
+    </select>
+
+    <select id="selectParkingById" parameterType="integer" resultType="Parking">
+        select *
+        from webdevcon.parking
+        where parkingId = #{parkingId};
+    </select>
+
+    <select id="selectParkingsByMarket" parameterType="integer" resultType="Parking">
+        select *
+        from webdevcon.parking
+        where marketId = #{marketId};
+    </select>
+
+    <delete id="deleteParking" parameterType="integer">
+        delete
+        from webdevcon.parking
+        where parkingId = #{parkingId};
+    </delete>
+
+    <delete id="deleteParkingByMarket" parameterType="integer">
+        delete
+        from webdevcon.parking
+        where marketId = #{marketId};
+    </delete>
+
+    <update id="updateParking" parameterType="Parking">
+        update webdevcon.parking
+        set marketId    = #{marketId},
+            parkingName = #{parkingName},
+            longitude   = #{longitude},
+            latitude    = #{latitude},
+            capacity    = #{capacity}
+        where parkingId = #{parkingId};
+    </update>
+
+</mapper>
